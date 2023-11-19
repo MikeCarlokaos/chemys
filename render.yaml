@@ -1,7 +1,10 @@
 services:
-  - name: client
+ - name: client
     type: static
-    buildCommand: npm run build
+    buildCommand: |
+      git submodule update --init --recursive
+      npm install
+      npm run build
     publishDir: client/dist
     envVars:
       - key: NODE_ENV
