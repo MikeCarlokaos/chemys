@@ -2,8 +2,9 @@
 
 services:
   - name: client
-    type: web
+   type: static
     buildCommand: npm run build
+    publishDir: frontend/dist
     envVars:
       - key: NODE_ENV
         value: production
