@@ -1,0 +1,17 @@
+# render.yaml
+
+services:
+  - name: client
+    type: web
+    buildCommand: npm run build
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+  - name: server
+    type: web
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
