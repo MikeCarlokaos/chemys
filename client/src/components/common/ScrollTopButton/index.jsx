@@ -1,28 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import arrowUp from "../../../assets/icons/arrow-up.svg";
 
 const ScrollTopButton = () => {
   const [showButton, setShowButton] = useState(false);
 
-  const toggleButton = () => {
-    const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 400) {
-      setShowButton(true);
-    } else if (scrolled <= 400) {
-      setShowButton(false);
-    }
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = document.documentElement.scrollTop;
+      setShowButton(scrolled > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
-      /* you can also use 'auto' behaviour
-         in place of 'smooth' */
     });
   };
-
-  window.addEventListener("scroll", toggleButton);
 
   return (
     <button
