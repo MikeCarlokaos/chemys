@@ -1,10 +1,10 @@
-# render.yaml
+
 
 services:
   - name: client
    type: static
     buildCommand: npm run build
-    publishDir: frontend/dist
+    publishDir: client/dist
     envVars:
       - key: NODE_ENV
         value: production
