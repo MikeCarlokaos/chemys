@@ -1,8 +1,8 @@
 services:
- - name: client
+  - name: client
     type: static
     buildCommand: |
-      git submodule update --init --recursive
+      cd client
       npm install
       npm run build
     publishDir: client/dist
