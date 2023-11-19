@@ -12,7 +12,10 @@ services:
 
   - name: server
     type: web
-    buildCommand: npm install
+    buildCommand: |
+      cd server
+      npm install
+      npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
