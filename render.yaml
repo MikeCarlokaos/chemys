@@ -1,8 +1,6 @@
-
-
 services:
   - name: client
-   type: static
+    type: static
     buildCommand: npm run build
     publishDir: client/dist
     envVars:
