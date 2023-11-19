@@ -6,8 +6,40 @@ require("dotenv").config();
 
 const app = express();
 
+// Apply CORS only for the /send route
+app.post("/send", cors(), async (req, res) => {
+  const { fname, lname, phone, email, company, enquiry } = req.body;
+
+  const content = `
+    Contact details
+    \n FirstName: ${fname} ${lname} \n Phone: ${phone} \n Email: ${email} \n Company: ${company} \n
+    Enquiry:
+    \n
+    ${enquiry}
+  `;
+
+  const mailOptions = {
+    from: email,
+    to: process.env.CLIENT_EMAIL,
+    subject: `Enquiry from website contact-form`,
+    text: content,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Message sent");
+    res.json({
+      status: "success",
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.json({
+      status: "fail",
+    });
+  }
+});
+
 // middleware
-app.use(cors());
 app.use(express.json());
 
 let transporter = nodemailer.createTransport({
@@ -24,39 +56,6 @@ transporter.verify((err, success) => {
     : console.log(`Server is ready to take messages: ${success}`);
 });
 
-app.post("/send", (req, res) => {
-  const { fname, lname, phone, email, company, enquiry } = req.body;
-
-  const content = `
-     Contact details
-  \n FirstName: ${fname} ${lname} \n Phone: ${phone} \n Email: ${email} \n Company: ${company} \n
-     Enquiry:
-    \n
-       ${enquiry}
-  `;
-
-  let mailOptions = {
-    from: email,
-    to: process.env.CLIENT_EMAIL,
-    subject: `Enquiry from website contact-form`,
-    text: content,
-  };
-
-  transporter.sendMail(mailOptions, (err, data) => {
-    if (err) {
-      console.error("Error sending email:", err);
-      res.json({
-        status: "fail",
-      });
-    } else {
-      console.log("Message sent");
-      res.json({
-        status: "success",
-      });
-    }
-  });
-});
-
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
@@ -66,6 +65,10 @@ app.get("*", (req, res) => {
 });
 
 const port = 3001;
-app.listen(port, () => {
+const server = app.listen(port, (err) => {
+  if (err) {
+    console.error("Error starting the server:", err);
+    return;
+  }
   console.log(`Server is running on port: ${port}`);
 });
