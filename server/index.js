@@ -6,8 +6,11 @@ require("dotenv").config();
 
 const app = express();
 
+// Enable CORS for all routes
+app.use(cors());
+
 // Apply CORS only for the /send route
-app.post("/send", cors(), async (req, res) => {
+app.post("/send", async (req, res) => {
   const { fname, lname, phone, email, company, enquiry } = req.body;
 
   const content = `
@@ -26,6 +29,22 @@ app.post("/send", cors(), async (req, res) => {
   };
 
   try {
+    // Create transporter
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.USER,
+        pass: process.env.PASS,
+      },
+    });
+
+    // Verify transporter
+    transporter.verify((err, success) => {
+      err
+        ? console.log(err)
+        : console.log(`Server is ready to take messages: ${success}`);
+    });
+
     await transporter.sendMail(mailOptions);
     console.log("Message sent");
     res.json({
@@ -39,36 +58,15 @@ app.post("/send", cors(), async (req, res) => {
   }
 });
 
-// middleware
-app.use(express.json());
-
-let transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.USER,
-    pass: process.env.PASS,
-  },
-});
-
-transporter.verify((err, success) => {
-  err
-    ? console.log(err)
-    : console.log(`Server is ready to take messages: ${success}`);
-});
-
-// Have Node serve the files for our built React app
+// Serve the React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 
-// All other GET requests not handled before will return our React app
+// All other routes will return the React app
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
 });
 
-const port = 3001;
-const server = app.listen(port, (err) => {
-  if (err) {
-    console.error("Error starting the server:", err);
-    return;
-  }
+const port = process.env.PORT || 3001;
+const server = app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
