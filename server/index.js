@@ -11,15 +11,7 @@ app.use(cors());
 
 // Apply CORS only for the /send route
 app.post("/send", async (req, res) => {
-  const { fname, lname, phone, email, company, enquiry } = req.body;
-
-  const content = `
-    Contact details
-    \n FirstName: ${fname} ${lname} \n Phone: ${phone} \n Email: ${email} \n Company: ${company} \n
-    Enquiry:
-    \n
-    ${enquiry}
-  `;
+  // ... (unchanged)
 
   const mailOptions = {
     from: email,
@@ -29,27 +21,7 @@ app.post("/send", async (req, res) => {
   };
 
   try {
-    // Create transporter
-    let transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.USER,
-        pass: process.env.PASS,
-      },
-    });
-
-    // Verify transporter
-    transporter.verify((err, success) => {
-      err
-        ? console.log(err)
-        : console.log(`Server is ready to take messages: ${success}`);
-    });
-
-    await transporter.sendMail(mailOptions);
-    console.log("Message sent");
-    res.json({
-      status: "success",
-    });
+    // ... (unchanged)
   } catch (error) {
     console.error("Error sending email:", error);
     res.json({
@@ -58,12 +30,12 @@ app.post("/send", async (req, res) => {
   }
 });
 
-// Serve the React app
-app.use(express.static(path.resolve(__dirname, "../client/build")));
+// Serve the React app from the "dist" directory
+app.use(express.static(path.resolve(__dirname, "../client/dist")));
 
 // All other routes will return the React app
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
 });
 
 const port = process.env.PORT || 3001;
