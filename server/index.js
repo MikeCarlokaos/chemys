@@ -31,11 +31,11 @@ app.post("/send", async (req, res) => {
 });
 
 // Serve the React app from the "dist" directory
-app.use(express.static(path.resolve(__dirname, "./client/dist")));
+app.use(express.static(path.resolve(__dirname, "../client/dist")));
 
 // All other routes will return the React app
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "./client/dist", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
 });
 
 const port = process.env.PORT || 3001;
