@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <section className="py-2 bg-slate-100 shadow-lg">
-      <div className="w-full flex justify-between items-center px-12 py-2 md:px-20">
+      <div className="w-full flex justify-between items-center px-5 py-2 md:px-20">
         {/* logo */}
         <div className="w-full">
           <div className="w-28 md:w-40 ">
@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="w-full h-full md:hidden">
           <div className="w-full flex justify-end items-center">
             <button onClick={handleMenu} className="flex items-center">
-              <h2 className="text-xl text-primary font-bold">Menu</h2>
+              <h2 className="text-lg text-primary font-bold">Menu</h2>
               <div className="flex flex-col h-12 w-12 rounded justify-center items-center group">
                 <div
                   className={`${genericHamburgerLine} ${
