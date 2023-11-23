@@ -82,15 +82,15 @@ const Footer = () => {
                 contact
               </h3>
             </div>
-            <div className="flex flex-col items-start px-2 gap-5 md:px-10">
-              <div className="flex  gap-2">
+            <div className="flex flex-col  px-2 gap-5 md:px-10">
+              <div className="flex flex-col items-center gap-2 md:flex-row">
                 <img src={phoneIcon} alt="phone" className="w-5 h-5 invert" />
                 <a href="tel:+0208 500 8497" className="hover:text-tertiary">
                   0208 500 8497
                 </a>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col items-center gap-2 md:flex-row">
                 <img src={emailIcon} alt="email" className="w-5 h-5 invert" />
                 <a
                   href="mailto:info@chemys.co.uk"
