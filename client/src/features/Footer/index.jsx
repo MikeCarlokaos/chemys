@@ -12,9 +12,9 @@ const Footer = () => {
   return (
     <section className="bg-primary text-white flex flex-col items-center bg-gradient-to-tl from-primary-600 via-primary/80 to-white md:bg-gradient-to-l">
       {/* links */}
-      <div className="w-full h-full flex flex-col justify-around py-5 px-5 gap-10 md:flex-row md:px-16">
+      <div className="w-full h-full flex flex-col justify-around py-5 px-5 gap-5 md:flex-row md:px-16 md:gap-10">
         {/* 1st half */}
-        <div className="w-full flex gap-10">
+        <div className="w-full flex gap-5 md:gap-10">
           {/* logo */}
           <div className="w-1/2 flex items-center justify-center">
             <img src={logo} alt="logo" className="w-40 h-28" />
@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
         </div>
         {/* second half */}
-        <div className="w-full flex gap-10">
+        <div className="w-full flex gap-5 md:gap-10">
           {/* address */}
           <div className="w-1/2 flex flex-col pt-5 gap-5">
             <div className="border-b-2">
@@ -82,7 +82,7 @@ const Footer = () => {
                 contact
               </h3>
             </div>
-            <div className="flex flex-col  px-2 gap-5 md:px-10">
+            <div className="flex flex-col gap-5 md:px-10">
               <div className="flex flex-col items-center gap-2 md:flex-row">
                 <img src={phoneIcon} alt="phone" className="w-5 h-5 invert" />
                 <a href="tel:+0208 500 8497" className="hover:text-tertiary">
