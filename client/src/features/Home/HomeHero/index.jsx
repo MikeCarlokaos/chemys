@@ -16,7 +16,7 @@ const HomeHero = () => {
               <h1 className="w-full text-3xl text-white text-center font-bold py-5 md:w-[50rem] md:text-5xl">
                 <span>Welcome to</span>
                 <br />
-                <span className="hero text-[2.75rem] text-center md:text-8xl">
+                <span className="hero text-[2.75rem] text-center whitespace-nowrap md:text-8xl">
                   Chemys Limited
                 </span>
               </h1>
